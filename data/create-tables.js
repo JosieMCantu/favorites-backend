@@ -17,10 +17,13 @@ async function run() {
                     email VARCHAR(256) NOT NULL,
                     hash VARCHAR(512) NOT NULL
                 );           
-                CREATE TABLE animals (
+                CREATE TABLE yelp (
                     id SERIAL PRIMARY KEY NOT NULL,
                     name VARCHAR(512) NOT NULL,
-                    cool_factor INTEGER NOT NULL,
+                    review_count INTEGER NOT NULL,
+                    img_url VARCHAR(512) NOT NULL,
+                    rating VARCHAR(512) NOT NULL,
+                    yelp_db_id VARCHAR(512) NOT NULL,
                     owner_id INTEGER NOT NULL REFERENCES users(id)
             );
         `);
