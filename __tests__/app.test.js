@@ -31,33 +31,73 @@ describe('app routes', () => {
       return client.end(done);
     });
 
-    test('returns animals', async() => {
+    
 
+    test('POSTs a new favorites', async() => {
+      const newFav = 
+        {
+          'name': 'new get ok',
+          'review_count': 1234,
+          'img_url': 'sadfs',
+          'rating': 'sdf',
+          'yelp_db_id': 'sdfs',
+          'owner_id': 2
+      };
       const expectation = [
         {
-          'id': 1,
-          'name': 'bessie',
-          'coolfactor': 3,
-          'owner_id': 1
-        },
-        {
-          'id': 2,
-          'name': 'jumpy',
-          'coolfactor': 4,
-          'owner_id': 1
-        },
-        {
-          'id': 3,
-          'name': 'spot',
-          'coolfactor': 10,
-          'owner_id': 1
-        }
+          'id': 4,
+          'name': 'new get ok',
+          'review_count': 1234,
+          'img_url': 'sadfs',
+          'rating': 'sdf',
+          'yelp_db_id': 'sdfs',
+          'owner_id': 2
+      }
       ];
 
       const data = await fakeRequest(app)
-        .get('/animals')
+        .post('/api/favorites')
+        .send(newFav)
+        .set('Authorization', token)
         .expect('Content-Type', /json/)
         .expect(200);
+
+      expect(data.body).toEqual(expectation);
+    });
+
+    test('GETs all favorites', async() => {
+      
+      const expectation = [
+        {
+          'id': 4,
+          'name': 'new get ok',
+          'review_count': 1234,
+          'img_url': 'sadfs',
+          'rating': 'sdf',
+          'yelp_db_id': 'sdfs',
+          'owner_id': 2
+      }
+      ];
+
+      const data = await fakeRequest(app)
+        .get('/api/favorites')
+        .set('Authorization', token)
+        // .expect('Content-Type', /json/)
+        // .expect(200);
+
+      expect(data.body).toEqual(expectation);
+    });
+
+    test('DELETEs all favorites', async() => {
+      
+      const expectation = 
+        {};
+
+      const data = await fakeRequest(app)
+        .delete('/api/favorites')
+        .set('Authorization', token)
+        // .expect('Content-Type', /json/)
+        // .expect(200);
 
       expect(data.body).toEqual(expectation);
     });
